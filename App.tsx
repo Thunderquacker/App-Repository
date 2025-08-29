@@ -1,16 +1,17 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
+ * Example React Native App with Images
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  StatusBar,
+  useColorScheme,
+} from 'react-native';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -24,14 +25,25 @@ function App() {
 }
 
 function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
   return (
     <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
+      <Text style={styles.title}>📷 My Photo App</Text>
+
+      {/* Local image from assets folder */}
+      <Image
+        source={require('./assets/logo.png')} // make sure you have this image
+        style={styles.image}
       />
+
+      {/* Remote image from the internet */}
+      <Image
+        source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+        style={styles.image}
+      />
+
+      <Text style={styles.caption}>
+        Above: Local image (logo.png) and a remote image from the web
+      </Text>
     </View>
   );
 }
@@ -39,6 +51,27 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '600',
+    marginBottom: 20,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+    marginVertical: 10,
+  },
+  caption: {
+    fontSize: 14,
+    color: '#555',
+    marginTop: 10,
+    textAlign: 'center',
   },
 });
 
